@@ -71,12 +71,43 @@
   </style>
   <script>
   const secondHand = document.getElementsByClassName("second-hand");
+  const minuteHand = document.querySelector(".min-hand");
+  const hourHand = document.querySelector(".hour-hand");  
+
+  var secCount = 0;
+  var minCount = 0;
+  var hourCount = 0;
+
   function showTime() {
     var now = new Date();
 
-    var seconds = now.getSeconds();
+    var seconds = secCount + now.getSeconds();
+    var minutes = minCount + now.getMinutes();
+    var hours = hourCount + now.getHours();
+
+    if (minutes - minCount === 0) {
+      minCount = minCount + 60;
+      minutes = minutes + minCount;
+    }
+
+    if (seconds - secCount === 0) {
+      secCount = secCount + 60;
+      seconds = seconds + secCount;
+    }
+
+    if (hours - hourCount === 0) {
+      hourCount = hourCount + 24;
+      hours = hours + hourCount;
+    }
+
+    var minDeg = ((minutes / 60) * 360) + 90;  
+    var secDeg = ((seconds / 60) * 360) + 90;
+    var hourDeg = ((hours / 24) * 360) + 90;  
+
     console.log(seconds);
-    secondHand[0].style.transform = `rotate(${((seconds / 60) * 360) + 90}deg)`;
+    secondHand[0].style.transform = `rotate(${secDeg}deg)`;
+    minuteHand.style.transform = `rotate(${minDeg}deg)`;
+    hourHand.style.transform = `rotate(${hourDeg}deg)`;
   }
 
   setInterval(showTime, 1000);
