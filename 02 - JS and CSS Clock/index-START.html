@@ -87,24 +87,24 @@
 
     if (minutes - minCount === 0) {
       minCount = minCount + 60;
-      minutes = minutes + minCount;
+      minutes = minCount;
     }
 
     if (seconds - secCount === 0) {
       secCount = secCount + 60;
-      seconds = seconds + secCount;
+      seconds = secCount;
     }
 
     if (hours - hourCount === 0) {
       hourCount = hourCount + 24;
-      hours = hours + hourCount;
+      hours = hourCount;
     }
 
     var minDeg = ((minutes / 60) * 360) + 90;  
     var secDeg = ((seconds / 60) * 360) + 90;
     var hourDeg = ((hours / 24) * 360) + 90;  
 
-    console.log(seconds);
+    console.log('seconds', seconds, 'count', secCount);
     secondHand[0].style.transform = `rotate(${secDeg}deg)`;
     minuteHand.style.transform = `rotate(${minDeg}deg)`;
     hourHand.style.transform = `rotate(${hourDeg}deg)`;
