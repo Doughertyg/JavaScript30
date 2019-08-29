@@ -78,6 +78,9 @@
   var minCount = 0;
   var hourCount = 0;
 
+  var minIncremented = false;
+  var hourIncremented = false;
+
   function showTime() {
     var now = new Date();
 
@@ -85,9 +88,13 @@
     var minutes = minCount + now.getMinutes();
     var hours = hourCount + now.getHours();
 
-    if (minutes - minCount === 0) {
+    minIncremented = now.getMinutes() === 0 ? minIncremented : false;
+    hourIncremented = now.getHours() === 0 ? hourIncremented : false;
+
+    if (minutes - minCount === 0 && !minIncremented) {
       minCount = minCount + 60;
       minutes = minCount;
+      minIncremented = true;
     }
 
     if (seconds - secCount === 0) {
@@ -95,16 +102,17 @@
       seconds = secCount;
     }
 
-    if (hours - hourCount === 0) {
+    if (hours - hourCount === 0 && !hourIncremented) {
       hourCount = hourCount + 24;
       hours = hourCount;
+      hourIncremented = true;
     }
 
     var minDeg = ((minutes / 60) * 360) + 90;  
     var secDeg = ((seconds / 60) * 360) + 90;
-    var hourDeg = ((hours / 24) * 360) + 90;  
+    var hourDeg = ((hours / 12) * 360) + 90;  
 
-    console.log('seconds', seconds, 'count', secCount);
+    console.log('hrs', hours, 'count', secCount);
     secondHand[0].style.transform = `rotate(${secDeg}deg)`;
     minuteHand.style.transform = `rotate(${minDeg}deg)`;
     hourHand.style.transform = `rotate(${hourDeg}deg)`;
