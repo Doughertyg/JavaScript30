@@ -16,6 +16,48 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const suggestions = document.querySelector(".suggestions");
+const input = document.querySelector(".search");
+
+/* 3 things I need to do:
+fetch data and put into array
+grab user input
+update view with user input
+  match input against data array and return new array
+  append new array to dom
+*/
+
+// fetch data:
+const cities = [];
+fetch(endpoint).then(blob => blob.json()).then(data => cities.push(...data));
+
+function test(e) {
+  console.log('this', this);
+  console.log('chaslkdjflksdjfksjdflksjdflkjsldkfjslkdfjskldvbdjvndjfbndkfjvnkdjbdfkjbnsldkmdfkbjndlvkmskdvjndlfbknsdlvnsldkmvsldvnnge!');
+}
+
+// update dom with matches from input
+function updateInput() {
+  console.log(this.value);
+  var matches = cities.filter(city => city.city.toLowerCase().indexOf(this.value.toLowerCase()) > -1 || city.state.toLowerCase().indexOf(this.value.toLowerCase()) > -1 ); //.map(item => `<li>${item}</li>`).join("");
+  var regex = new RegExp(this.value, 'gi');
+  var html = matches.map(city => {
+    return `
+      <li>
+        <span>
+          ${city.city.replace(regex, `<span class="hl">${this.value}</span>`)}, ${city.state.replace(regex, `<span class="hl">${this.value}</span>`)}
+        </span> 
+        <span>
+          ${city.population}
+        </span>
+      </li>
+     `
+  }).join('');
+  suggestions.innerHTML = html;
+}
+
+input.addEventListener("keyup", updateInput);
+
 
 </script>
 </body>
