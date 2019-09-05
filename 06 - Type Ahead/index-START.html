@@ -31,15 +31,10 @@ update view with user input
 const cities = [];
 fetch(endpoint).then(blob => blob.json()).then(data => cities.push(...data));
 
-function test(e) {
-  console.log('this', this);
-  console.log('chaslkdjflksdjfksjdflksjdflkjsldkfjslkdfjskldvbdjvndjfbndkfjvnkdjbdfkjbnsldkmdfkbjndlvkmskdvjndlfbknsdlvnsldkmvsldvnnge!');
-}
-
 // update dom with matches from input
 function updateInput() {
   console.log(this.value);
-  var matches = cities.filter(city => city.city.toLowerCase().indexOf(this.value.toLowerCase()) > -1 || city.state.toLowerCase().indexOf(this.value.toLowerCase()) > -1 ); //.map(item => `<li>${item}</li>`).join("");
+  var matches = cities.filter(city => city.city.toLowerCase().indexOf(this.value.toLowerCase()) > -1 || city.state.toLowerCase().indexOf(this.value.toLowerCase()) > -1 ); 
   var regex = new RegExp(this.value, 'gi');
   var html = matches.map(city => {
     return `

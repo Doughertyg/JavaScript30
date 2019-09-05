@@ -27,8 +27,6 @@ class Stopwatch {
 		console.log(this);
 		this.int = setInterval(() => {
 			this.ms += 1;
-			// console.log(this);
-			console.log(this.ms);
 			this.display.innerHTML = this.ms;
 		}, 1);
 	}

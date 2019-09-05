@@ -58,12 +58,15 @@ class Stopwatch {
     const genericButton = document.createElement('button');
     genericButton.className = name;
     genericButton.innerText = name;
+    genericButton.id = name;
     
     return genericButton;
   }
   
   onClick(e) {
-    if (e.target.matches('.start')) {
+    console.log(e.target.id);
+
+    if (e.target.className === 'start') {
       this.start();
     }
 
