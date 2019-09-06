@@ -9,7 +9,7 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px" class="input">
 
     <label for="blur">Blur:</label>
     <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
@@ -22,9 +22,13 @@
 
   <style>
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+    :root {
+      --base: #ffc600;
+      --blur: 10px;
+      --spacing: 10px;
+    };
+
+
 
     body {
       text-align: center;
@@ -42,9 +46,41 @@
     input {
       width: 100px;
     }
+
+    img {
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background: var(--base);
+    }
+
+    .hl {
+      color: var(--base);
+    }
   </style>
 
   <script>
+
+    function handleChange(e) {
+      console.log(this);
+
+      if (e.target.name === "spacing") {
+        document.documentElement.style.setProperty("--spacing", e.target.value + "px");
+      }
+
+      if (e.target.name === "blur") {
+        document.documentElement.style.setProperty("--blur", e.target.value + "px");
+      }
+
+      if (e.target.name === "base") {
+        document.documentElement.style.setProperty("--base", e.target.value);
+      }
+    }
+
+
+    var controls = document.querySelector(".controls");
+    controls.addEventListener("mousemove", handleChange);
+    controls.addEventListener("change", handleChange);
+
   </script>
 
 </body>
